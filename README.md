@@ -45,6 +45,14 @@ node <file-name>
     - Incorporate cultural context to respect and preserve linguistic identities.
     - Develop teaching materials for African languages.
 
+4. Dabatase
+ - Running sqlite3
+ 1. Create db
+ ```bash
+ sqlite3 codeujuzi.db
+ ```
+
+
 
 ## Next Steps
 1. Platform Development
