@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	handlers "codeujuzi.github.io/http"
+	"codeujuzi.github.io/middleware"
 	"github.com/gorilla/mux"
 )
 
@@ -12,11 +13,14 @@ var r = mux.NewRouter()
 func routes(){
 	r.HandleFunc("/",handlers.HomePageHandler)
 	r.HandleFunc("/signin",handlers.SigninHandler)
+	r.HandleFunc("/signup",handlers.SignupHandler)
+
 	r.HandleFunc("/login",handlers.LoginHandler)
-	r.HandleFunc("/register",handlers.RegisterHandler)
-	r.HandleFunc("/lessons",handlers.LessonsHandler)
-	r.HandleFunc("/course-outline",handlers.CourseHandler)
+	r.HandleFunc("/register", handlers.RegisterHandler)
 	r.HandleFunc("/logout",handlers.LogoutHandler)
+
+	r.HandleFunc("/lessons",middleware.TokenValidation(handlers.LessonsHandler))
+	r.HandleFunc("/course-outline",handlers.CourseHandler)
 	r.HandleFunc("/profile",handlers.ProfileHandler)
 
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/",http.FileServer(http.Dir("static"))))
