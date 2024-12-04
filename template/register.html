@@ -130,7 +130,7 @@
 </nav>
   <div class="container">
     <h1>Join the Coding Revolution</h1>
-    <form id="signupForm">
+    <form id="signupForm" action="/register" method="post">
       <div class="form-group">
         <label for="name">Full Name</label>
         <input type="text" id="name" name="name" required>
@@ -234,11 +234,11 @@
       <button type="submit">Sign Up</button>
     </form>
     <div class="signin-section">
-      Already have an account? <a href="/login" class="signin-link">Sign In</a>
+      Already have an account? <a href="/signin" class="signin-link">Sign In</a>
     </div>
   </div>
 
-  <script>
+  <!-- <script>
     document.getElementById('signupForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -277,6 +277,6 @@
       window.location.href = 'login.html'; // Redirect to login page
 
     });
-  </script>
+  </script> -->
 </body>
 </html>
