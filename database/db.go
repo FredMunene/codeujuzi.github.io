@@ -1,38 +1,60 @@
 package database
 
 import (
-	"database/sql"
 	"fmt"
-	"os"
 
-	"github.com/joho/godotenv"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
 
-var DB *sql.DB
+var DB *gorm.DB
 
 func InitDB() {
 	var errConn error
 
-	err := godotenv.Load()
-	if err != nil {
-		fmt.Println("error loading environment vars", err)
-		return
-	}
-
-	connStr := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
-		os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"),
-		os.Getenv("DB_HOST"), os.Getenv("DB_PORT"), os.Getenv("DB_NAME"))
-
-	DB, errConn = sql.Open("postgres", connStr)
+	DB, errConn = gorm.Open(sqlite.Open("codeujuzi.db"), &gorm.Config{})
 	if errConn != nil {
-		fmt.Println("error opening sql", errConn)
+		fmt.Println("failed to connect to database: ", errConn)
 		return
 	}
 
-	if err = DB.Ping(); err != nil {
-		fmt.Println("error connecting to db", err)
+	// Migrate Schema(create table 'users')
+	err := DB.AutoMigrate(&User{}, &UserLanguage{})
+	if err != nil {
+		fmt.Println("failed to migrate schema: ", err)
 		return
 	}
 
-	fmt.Println("Db connected successfully")
+	fmt.Println("Db connected and schema migrated successfully")
+}
+
+func AddUser(user *User) error {
+
+	var existingUser User
+
+	result := DB.Where("email = ?", user.Email).First(&existingUser)
+	if result.Error == nil {
+		return fmt.Errorf("email %s is already in use", user.Email)
+	}
+
+	// initialize dialect
+	result = DB.Create(user)
+	if result.Error != nil {
+		 return fmt.Errorf("failed to add user: %w", result.Error)
+	}
+	fmt.Println("User added successfully", user.Email)
+	return nil
+}
+
+func GetUserPasswd(email string) (string,string, error) {
+
+	var user User
+	result := DB.First(&user, "email = ?", email)
+	if result.Error != nil {
+		return "","",fmt.Errorf("user not found: %w", result.Error)
+   }
+
+   
+
+	return string(user.HashedPassword), string(user.Name), nil
 }
