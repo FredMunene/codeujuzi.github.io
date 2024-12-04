@@ -24,3 +24,5 @@ SET
     hashed_password = COALESCE(sqlc.narg(hashed_password),hashed_password)
 WHERE user_id = $1
 RETURNING user_id, email, created_at
+
+

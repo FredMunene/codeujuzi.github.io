@@ -1,0 +1,8 @@
+version: "1"
+packages:
+  - name: "database"
+    path: "./database/queries"
+    queries: "./database/queries/users.sql"
+    schema: "./database/queries/schema.sql"
+    engine: "sqlite"  # Change to "sqlite" for SQLite
+    sql_package: "sqlc"
