@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login - CodeUjuzi</title>
-<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="./css/styles.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
  
@@ -114,8 +114,8 @@
   <!-- Navbar -->
 <nav class="navbar">
   <div class="navbar-left">
-      <a href="index.html" class="brand">CodeUjuzi</a>
-      <a href="course-outline.html" class="nav-link">Courses</a>
+      <a href="/" class="brand">CodeUjuzi</a>
+      <a href="/course-outline" class="nav-link">Courses</a>
   </div>
 
   <div class="navbar-right">
@@ -131,10 +131,10 @@
 
       <!-- Profile Dropdown -->
       <div class="dropdown profile-dropdown">
-          <img src="avatar.png" alt="Profile" class="avatar">
+          <img src="/static/avatar.png" alt="Profile" class="avatar">
           <div class="dropdown-content">
-              <a href="#">Profile</a>
-              <a href="#">Logout</a>
+              <a href="/profile">Profile</a>
+              <a href="logout">Logout</a>
           </div>
       </div>
   </div>
@@ -142,15 +142,15 @@
 
   <div class="container">
     <h1>Login</h1>
-    <form id="loginForm">
+    <form id="loginForm" action="/login" method="POST">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" placeholder="Enter your email">
-        <div class="error">Email is required</div>
+        <input type="email" id="email" name="email" placeholder="Enter your email">
+        <!-- <div class="error">Email is required</div> -->
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter your password">
+        <input type="password" id="password" name="password" placeholder="Enter your password">
       </div>
       <button type="submit">Login</button>
       <div class="forgot-password">
@@ -159,33 +159,33 @@
     </form>
 
     <div class="signup-section">
-      <p>Don't have an account? <a href="register.html" class="signup-link">Sign Up</a></p>
+      <p>Don't have an account? <a href="/register" class="signup-link">Sign Up</a></p>
     </div>
   </div>
 
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+ <script>
+    //   document.getElementById('loginForm').addEventListener('submit', function(e) {
+    //   e.preventDefault();
 
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+    //   const email = document.getElementById('email').value;
+    //   const password = document.getElementById('password').value;
 
-      // Load existing users from localStorage
-      const users = JSON.parse(localStorage.getItem('users')) || [];
+    //   // Load existing users from localStorage
+    //   const users = JSON.parse(localStorage.getItem('users')) || [];
 
-      // Check if user exists and password matches
-      const user = users.find(user => user.email === email && user.password === password);
+    //   // Check if user exists and password matches
+    //   const user = users.find(user => user.email === email && user.password === password);
 
-      if (user) {
-        // Store user info in sessionStorage
-      sessionStorage.setItem('currentUser', JSON.stringify(user));
-        alert('Login successful!');
-        // Redirect to a protected page, e.g., dashboard or homepage
-        window.location.href = 'index.html'; // Change this to the desired redirect page
-      } else {
-        alert('Invalid email or password. Please try again.');
-      }
-    });
-  </script>
+    //   if (user) {
+    //     // Store user info in sessionStorage
+    //   sessionStorage.setItem('currentUser', JSON.stringify(user));
+    //     alert('Login successful!');
+    //     // Redirect to a protected page, e.g., dashboard or homepage
+    //     window.location.href = 'index.html'; // Change this to the desired redirect page
+    //   } else {
+    //     alert('Invalid email or password. Please try again.');
+    //   }
+    // });
+  </script> 
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="./css/styles.css">
     <title>Lessons</title>
     <style>
         body, html {
@@ -75,10 +75,10 @@
 
         <!-- Profile Dropdown -->
         <div class="dropdown profile-dropdown">
-            <img src="avatar.png" alt="Profile" class="avatar">
+            <img src="/static/avatar.png" alt="Profile" class="avatar">
             <div class="dropdown-content">
-                <a href="#" id="profileName">Profile</a>
-                <a href="#" id="logoutLink">Logout</a>
+                <a href="/profile" id="profileName">Profile</a>
+                <a href="/logout" id="logoutLink">Logout</a>
             </div>
         </div>
     </div>
@@ -101,22 +101,7 @@
 </main>
 
 <script>
-    //   document.addEventListener('DOMContentLoaded', function() {
-    // Check if there's a logged-in user
-    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-
-    // Redirect to login if not authenticated
-    if (currentUser) {
-      document.getElementById('profileName').innerText = `${currentUser.name}`; // Display user name
-    }
-
-    // Handle logout
-    document.getElementById('logoutLink').addEventListener('click', function(e) {
-      e.preventDefault(); // Prevent the default link action
-      sessionStorage.removeItem('currentUser'); // Clear the session
-      window.location.href = 'login.html'; // Redirect to login
-    });
-    const lessons = [
+       const lessons = [
         {
             title: "What is HTML5?",
             content: "HTML5 is the latest evolution of the standard that defines HTML. It's a markup language used for structuring and presenting content on the World Wide Web. Some features of HTML5 include:\n\n" +
@@ -179,7 +164,7 @@
         e.preventDefault(); // Prevent the default link action
 
         const selectedLanguage = e.target.getAttribute('data-language');
-        console.log("languag is",selectedLanguage)
+        console.log("language is",selectedLanguage)
         const content = document.getElementById('lesson-content').textContent;
 
         fetch('/translate', {
